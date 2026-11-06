@@ -154,3 +154,4 @@ ul.list.tight li { margin-bottom: 6px; }
 /* ---------- Photo gallery (hardware games) ---------- */
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; max-width: var(--measure); margin-top: 20px; }
 .gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+.gallery-video { display: block; width: 100%; max-width: var(--measure); margin-top: 12px; border-radius: 8px; background: #000; }
