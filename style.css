@@ -1,0 +1,152 @@
+/* ===== One source of truth: every page reads these variables ===== */
+:root {
+  /* fonts: one for headings, one for everything else */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-lora: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* colours */
+  --bg: #FDFDFB;
+  --ink: #1A1A1A;
+  --muted: #6B6B66;
+  --link: #7A4A2B;
+  --accent: #C8643C;
+
+  /* type scale */
+  --fs-title: 18px;    /* page title (Projects, Notes, Contact) */
+  --fs-title-2: 32px;  /* secondary title (awards) */
+  --fs-name: 44px;     /* name on the about page */
+  --fs-section: 18px;  /* section subheading (bold, lowercase) */
+  --fs-body: 18px;     /* body text and list items */
+  --fs-sub: 16px;      /* subtitle under the name */
+  --fs-nav: 18px;      /* sidebar labels */
+  --fs-small: 14px;    /* link / photos */
+  --lh: 1.8;
+
+  /* layout and spacing */
+  --measure: 700px;      /* max content width */
+  --page-top: 90px;      /* top padding of every page */
+  --space-section: 44px; /* between sections */
+  --space-item: 18px;    /* between list items */
+  --space-para: 22px;    /* between paragraphs */
+  --indent: 42px;        /* hanging indent for lists */
+}
+
+html { font-size: 16px; background: var(--bg); }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  font-weight: 400;
+}
+
+/* ---------- Sidebar: top left, level with the top of the content ---------- */
+.sidebar { position: fixed; top: var(--page-top); left: 330px; width: 95px; }
+.sidebar nav { display: flex; flex-direction: column; gap: 4px; }
+.sidebar a { position: relative; display: block; padding: 4px 0 4px 16px; font-size: var(--fs-nav); line-height: 24px; font-weight: 400; white-space: nowrap; color: var(--muted); text-decoration: none; transition: color .3s ease, transform .35s ease; }
+.sidebar a:not(.is-active):hover { color: var(--ink); transform: translateX(4px); }
+.sidebar a.is-active { color: var(--ink); }
+/* one thin bar, only on the page you are on */
+.sidebar a.is-active::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 2px; background: var(--accent); transform-origin: top; animation: bar-grow .6s ease both; }
+@keyframes bar-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* ---------- Content ---------- */
+main { margin: 0 0 0 473px; padding: var(--page-top) 0 120px; animation: page-in .6s ease both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.page-header { display: flex; align-items: center; gap: 34px; margin-bottom: 56px; }
+.page-header > div { min-width: 0; }
+.profile-photo { flex: none; display: block; width: 130px; height: 130px; max-width: none; object-fit: cover; object-position: center top; border-radius: 8px; }
+
+/* ---------- Typography ---------- */
+h1 { margin: 0; font-family: var(--font-body); font-size: var(--fs-name); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; }
+h1 .u { display: block; width: fit-content; }
+.tagline { margin: 8px 0 0; font-size: var(--fs-sub); line-height: 22px; color: var(--muted); }
+
+/* page titles: same font as the about text, bold, on every page */
+h2 { margin: 0 0 var(--space-para); font-family: var(--font-body); font-size: var(--fs-title); line-height: 1.4; font-weight: 600; letter-spacing: normal; }
+h2.title-2 { margin-top: var(--space-section); font-size: var(--fs-title-2); }
+h3 { margin: var(--space-section) 0 14px; font-family: var(--font-body); font-size: var(--fs-section); line-height: 1.4; font-weight: 700; }
+h2 + h3 { margin-top: 36px; }
+
+p { margin: 0 0 var(--space-para); max-width: var(--measure); overflow-wrap: break-word; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+a.small { font-size: var(--fs-small); }
+.muted { color: var(--muted); }
+
+/* ---------- Lists: number sits on the left edge, text hangs at --indent ---------- */
+ol.list, ul.list { list-style: none; margin: 0 0 var(--space-section); padding: 0; max-width: var(--measure); counter-reset: item; }
+ol.list li, ul.list li { position: relative; margin-bottom: var(--space-item); padding-left: var(--indent); counter-increment: item; }
+ol.list li::before { content: counter(item) "."; position: absolute; left: 0; }
+ul.list li::before { content: "\2022"; position: absolute; left: 10px; }
+ul.list.tight li { margin-bottom: 6px; }
+.links { display: block; }
+/* long, hairline-thin dash between a name and its description */
+.dash { display: inline-block; width: 14px; height: 1px; margin: 0 2px; background: currentColor; vertical-align: middle; position: relative; top: -1px; }
+
+/* ---------- Layout ---------- */
+@media (min-width: 1200px) {
+  .layout { display: flex; align-items: flex-start; gap: 90px; margin-left: 110px; }
+  .sidebar { position: static; width: max-content; margin-top: var(--page-top); }
+  main { margin-left: 0; }
+}
+
+/* ---------- Tablet: 700px to 1199px ---------- */
+@media (max-width: 1199px) {
+  .sidebar { left: 150px; width: 110px; }
+  main { margin-left: 300px; }
+  h1 { white-space: normal; }
+}
+
+/* ---------- Mobile: under 700px ---------- */
+@media (max-width: 699px) {
+  :root { --fs-title: 18px; --fs-title-2: 26px; --fs-name: 32px; --fs-sub: 18px; --space-section: 36px; --indent: 34px; --lh: 1.7; }
+  .sidebar { position: static; width: auto; padding: 24px 24px 0; }
+  .sidebar nav { flex-direction: row; flex-wrap: wrap; gap: 8px 24px; }
+  .sidebar a { padding: 0; line-height: 30px; }
+  .sidebar a.is-active { font-weight: 700; }
+  .sidebar a:not(.is-active):hover { transform: none; }
+  .sidebar a::before, .sidebar a.is-active::before { display: none; }
+  main { margin-left: 0; padding: 32px 24px 60px; animation: none; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 36px; }
+  .profile-photo { width: 120px; height: 120px; }
+  .tagline { line-height: 26px; }
+  p { max-width: none; }
+}
+
+/* ---------- Projects page: same type as the About text ---------- */
+.projects-page h2, .projects-page h3 { font-family: var(--font-body); font-size: 18px; letter-spacing: normal; }
+.projects-page h3 { font-weight: 400; }
+.projects-page main a, .projects-page main a.small { color: var(--ink); font-size: 18px; }
+.projects-page main a:hover { color: var(--muted); }
+
+/* ---------- Projects, Notes, Contact: three levels, getting smaller and lighter ---------- */
+/* 1. page title: Lora 700, about 2x the body size (the only place Lora is used) */
+.lora-page main h2 { font-family: var(--font-lora); font-size: 36px; font-weight: 700; line-height: 1.2; }
+/* 2. section headings: Inter 600, body size */
+.lora-page main h3 { font-family: var(--font-body); font-weight: 600; }
+/* 3. everything else (names, descriptions, links): Inter 400 like the About text; links black and underlined */
+.lora-page main a, .lora-page main a.small { color: var(--ink); }
+.lora-page main a:hover { color: var(--muted); }
+
+/* ---------- Projects, Notes, Contact: extremely compact spacing ---------- */
+.lora-page main h2 { margin: 0 0 20px; }
+.lora-page main h2 + h3 { margin-top: 0; }
+.lora-page main h3 { margin: 28px 0 8px; line-height: 1.5; }
+.lora-page main p { margin: 0 0 10px; line-height: 1.5; }
+.lora-page main ol.list, .lora-page main ul.list { margin: 0; padding: 0; }
+.lora-page main ol.list li, .lora-page main ul.list li { line-height: 1.5; }
+.lora-page main ol.list li { margin: 0 0 12px; padding-left: 1.3em; }
+.lora-page main ul.list li { margin: 0 0 4px; padding-left: 1.2em; }
+.lora-page main ul.list li::before { left: 6px; }
+.lora-page main ol.list li:last-child, .lora-page main ul.list li:last-child { margin-bottom: 0; }
+.lora-page main .links { margin: 0; }
+
+/* name + dash on the left, description beside it: wrapped lines start where the first line's sentence started */
+.lora-page main li.row { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.35em; }
+.lora-page main li.row .lead { white-space: nowrap; }
