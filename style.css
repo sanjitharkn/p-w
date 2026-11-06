@@ -150,3 +150,7 @@ ul.list.tight li { margin-bottom: 6px; }
 /* name + dash on the left, description beside it: wrapped lines start where the first line's sentence started */
 .lora-page main li.row { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.35em; }
 .lora-page main li.row .lead { white-space: nowrap; }
+
+/* ---------- Photo gallery (hardware games) ---------- */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; max-width: var(--measure); margin-top: 20px; }
+.gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
